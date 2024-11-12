@@ -41,6 +41,17 @@
                 <div class="invalid-feedback d-block">{{ $message }}</div>
             @enderror
         </div>
+        
+        <div class="input-group has-validation mt-3">
+            <div class="form-floating">
+                <input type="password" name="password_confirmation"
+                    class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="">
+                <label for="password_confirmation">Confirm Password</label>
+            </div>
+            @error('password_confirmation')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
 
         <button type="submit" class="btn btn-primary w-100 mt-5">Register</button>
 
