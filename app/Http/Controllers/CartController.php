@@ -44,4 +44,58 @@ class CartController extends Controller
         }
     }
 
+    public function removeOneFromCart(Product $product)
+    {
+        if (!auth()->check()) {
+            return redirect()->back()->withErrors(['error' => 'Must be logged in to update your shopping cart!']);
+        }
+
+        $user = auth()->user();
+        $cart = $user->cart();
+        $cartProduct = $cart->products()->where('product_id', $product->id)->first();
+
+        if ($cartProduct) {
+            $cartProduct->quantity -= 1;
+
+            if ($cartProduct->quantity <= 0) {
+                $cartProduct->delete();
+                return redirect()->back()->with('success', 'Product removed from your shopping cart!');
+            }
+            $cartProduct->save();
+
+            return redirect()->back()->with('success', 'Quantity decreased by one!');
+        }
+
+        return redirect()->back()->withErrors(['error' => 'Product not found in your cart!']);
+    }
+
+    public function removeAllFromCart(Product $product)
+    {
+        if (!auth()->check()) {
+            return redirect()->back()->withErrors(['error' => 'Must be logged in to update your shopping cart!']);
+        }
+
+        $user = auth()->user();
+        $cart = $user->cart();
+        $cartProduct = $cart->products()->where('product_id', $product->id)->first();
+
+        if ($cartProduct) {
+            $cartProduct->delete();
+            return redirect()->back()->with('success', 'All of this product has been removed from your shopping cart!');
+        }
+        return redirect()->back()->withErrors(['error' => 'Product not found in your cart!']);
+    }
+
+    public function clearCart()
+    {
+        if (!auth()->check()) {
+            return redirect()->back()->withErrors(['error' => 'Must be logged in to update your shopping cart!']);
+        }
+
+        $user = auth()->user();
+        $cart = $user->cart();
+        $cart->products()->delete();
+
+        return redirect()->back()->with('success', 'All products have been removed from your shopping cart!');
+    }
 }
