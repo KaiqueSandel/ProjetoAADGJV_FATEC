@@ -37,3 +37,4 @@ class Product extends Model
         return $this->reviews()->avg('rating');
     }
 }
+
