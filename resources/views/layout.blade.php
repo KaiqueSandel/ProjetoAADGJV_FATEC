@@ -45,3 +45,40 @@
 
                 </ul>
             </div>
+
+            <ul class="navbar-nav ms-auto">
+                @guest
+
+                    <li class="nav-item">
+                        <a class="nav-link fs-5" href="{{ route('login.index') }}">login</a>
+                    </li>
+
+                @endguest
+
+                @auth
+                    @if (Auth::user()->user_type === 'customer')
+
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" href="{{ route('carts.showCart') }}">carrinho</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                minha conta
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item fs-5" href="">meus pedidos</a></li>
+                                <li><a class="dropdown-item fs-5" href="">meu endereço</a></li>
+                                <li>
+                                    <a class="dropdown-item fs-5" href=""
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        logout
+                                    </a>
+                                </li>
+                                <form id="logout-form" action="{{ route('login.destroy') }}" method="GET"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            </ul>
+                        </li>
+
