@@ -82,3 +82,41 @@
                             </ul>
                         </li>
 
+                    @elseif (Auth::user()->user_type === 'admin')
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                opções de administrador
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item fs-5" href="">dashboard</a></li>
+                                <li><a class="dropdown-item fs-5" href="{{ route('products.index') }}">produtos</a></li>
+                                <li><a class="dropdown-item fs-5" href="">usuarios</a></li>
+                                <li>
+                                    <a class="dropdown-item fs-5" href=""
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        logout
+                                    </a>
+                                </li>
+                                <form id="logout-form" action="{{ route('login.destroy') }}" method="GET"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            </ul>
+                        </li>
+
+                    @endif
+                @endauth
+            </ul>
+        </div>
+    </nav>
+
+    @yield('content')
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
