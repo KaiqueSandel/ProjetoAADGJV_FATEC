@@ -36,4 +36,36 @@
             @enderror
         </div>
 
+        <div class="has-validation mb-3">
+            <div class="form-floating">
+                <select name="user_type" class="form-control @error('user_type') is-invalid @enderror">
+                    <option value="" selected>...</option>
+                    <option value="admin" @selected($user->user_type == 'admin')>Admin</option>
+                    <option value="customer" @selected($user->user_type == 'customer')>Customer</option>
+                </select>
+                <label for="user_type">User Type</label>
+            </div>
+            @error('user_type')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="has-validation mt-3">
+            <div class="form-floating">
+                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                    value="{{ $user->email }}" placeholder="">
+                <label for="email">E-mail</label>
+            </div>
+            @error('email')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="w-50 mt-5">
+            <a type="button" class="btn btn-primary w-25" href="{{ route('users.index') }}">Go Back</a>
+            <input type="submit" class="btn btn-success w-25" value="Confirm">
+        </div>
+    </form>
+</div>
+
 @endsection

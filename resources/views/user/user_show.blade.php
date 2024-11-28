@@ -31,5 +31,17 @@
                 <label for="user_type">E-mail</label>
             </div>
         </div>
+        <div class="mb-3">
+            <div class="form-floating">
+                <input type="text" name="email" class="form-control" value="{{$user->email}}" readonly>
+                <label for="email">E-mail</label>
+            </div>
+        </div>
+        <div class="w-50 mt-5">
+            <a type="button" class="btn btn-primary w-25" href="{{ route('users.index') }}">Go Back</a>
+            <button type="submit" class="btn btn-danger w-25">Delete</button>
+        </div>
+    </form>
+</div>
 
 @endsection
