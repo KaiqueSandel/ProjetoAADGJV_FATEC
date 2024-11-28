@@ -19,4 +19,25 @@ class AddressController extends Controller
         return view('address/addresses', ['addresses' => $addresses]);
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show(Address $address)
+    {
+        return view('address/address_show', ['address' => $address]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Address $address)
+    {
+        $address->delete();
+
+        return redirect()->route('addresses.index')->with('success', 'Address deleted!');
+    }
 }
