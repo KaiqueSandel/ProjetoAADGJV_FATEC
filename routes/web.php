@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
@@ -29,3 +30,11 @@ Route::post('/shopping-cart/add-one/{product}', [CartController::class, 'addOneT
 Route::post('/shopping-cart/remove-one/{product}', [CartController::class, 'removeOneFromCart'])->name('carts.removeOne');
 Route::post('/shopping-cart/remove-all/{product}', [CartController::class, 'removeAllFromCart'])->name('carts.removeAll');
 Route::post('/shopping-cart/clear', [CartController::class, 'clearCart'])->name('carts.clear');
+
+Route::get('/address', [AddressController::class, 'index'])->name('addresses.index');
+Route::get('/address/create', [AddressController::class, 'create'])->name('addresses.create');
+Route::post('/address/store', [AddressController::class, 'store'])->name('addresses.store');
+Route::get('/address/{address}/show', [AddressController::class, 'show'])->name('addresses.show');
+Route::get('/address/{address}/edit', [AddressController::class, 'edit'])->name('addresses.edit');
+Route::put('/address/{address}/update', [AddressController::class, 'update'])->name('addresses.update');
+Route::delete('/address/{address}/destroy', [AddressController::class, 'destroy'])->name('addresses.destroy');
