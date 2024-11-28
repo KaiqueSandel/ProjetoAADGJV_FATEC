@@ -81,6 +81,47 @@ class AddressController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    public function edit(Address $address)
+    {
+        return view('address/address_edit', ['address' => $address]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'street' => ['required', 'string', 'max:255'],
+            'number' => ['required', 'numeric'],
+            'city' => ['required', 'string', 'max:255'],
+            'state' => ['required', 'string', 'max:255'],
+        ], [
+            'street.required' => 'The street field is required.',
+            'street.string' => 'The street must be a string.',
+            'street.max' => 'The street must not exceed 255 characters.',
+
+            'number.required' => 'The number field is required.',
+
+            'city.required' => 'The city field is required.',
+            'city.string' => 'The city must be a string.',
+            'city.max' => 'The city must not exceed 255 characters.',
+
+            'state.required' => 'The state field is required.',
+            'state.string' => 'The state must be a string.',
+            'state.max' => 'The state must not exceed 255 characters.',
+        ]);
+
+        $data = $request->except(['_token', '_method']);
+
+        $updated = Address::where('id', $id)->update($data);
+
+        if ($updated) {
+            return redirect()->route('addresses.index')->with('success', 'Succesfully updated!');
+        }
+
+        return redirect()->route('addresses.index')->with('error', 'Failed to update!');
+    }
 
     /**
      * Remove the specified resource from storage.
