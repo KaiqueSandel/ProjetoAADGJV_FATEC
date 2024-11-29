@@ -15,7 +15,6 @@
     @endif
 
     <hr class="mt-4">
-
     <div class="mt-5 d-flex justify-content-center">
         <form action="{{ route('products.byFilter') }}" method="GET" class="w-75">
             @csrf
@@ -72,12 +71,20 @@
                                 <p class="card-text">
                                     {{ Str::limit($product->description, 75) }}
                                 </p>
-                                <p class="card-text">
+                                <div class="stars d-flex align-items-center">
+                                    Users rated it
+                                    <div class="ms-3">
+                                        @for ($i = 1; $i <= $product->averageRating(); $i++)
+                                            <i class="material-icons text-warning">star_rate</i>
+                                        @endfor
+                                    </div>
+                                </div>
+                                <p class="card-text mt-3">
                                     <small class="text-body-secondary">
                                         Last updated {{ $product->updated_at->diffForHumans() }}
                                     </small>
                                 </p>
-                                <h4>${{ number_format($product->price, 2) }}</h4>
+                                <h4 class="mt-3">${{ number_format($product->price, 2) }}</h4>
                                 <div class="w-100 d-flex align-items-center justify-content-end mt-4">
                                     <a href="{{ route('products.detail', ['product' => $product->id]) }}"
                                         class="btn btn-primary ms-2">
@@ -100,7 +107,6 @@
         @endforeach
     </div>
 </div>
-
 <div class="container mt-5 mb-5">
     {{--
     -> 'request()->query()' returns all parameters of the current request,
