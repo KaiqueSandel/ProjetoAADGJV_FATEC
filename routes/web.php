@@ -44,3 +44,4 @@ Route::get('/address/{address}/show', [AddressController::class, 'show'])->name(
 Route::get('/address/{address}/edit', [AddressController::class, 'edit'])->name('addresses.edit');
 Route::put('/address/{address}/update', [AddressController::class, 'update'])->name('addresses.update');
 Route::delete('/address/{address}/destroy', [AddressController::class, 'destroy'])->name('addresses.destroy');
+Route::delete('/address/{address}/destroy', [AddressController::class, 'destroy'])->name('addresses.destroy');
