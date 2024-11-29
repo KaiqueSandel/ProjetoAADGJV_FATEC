@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     @section('title') simple-ecommerce-laravel @endsection
     <title>@yield('title')</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -26,12 +28,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active fs-5" aria-current="page"
-                            href="{{ route('products.getAll') }}">produtos</a>
+                            href="{{ route('products.getAll') }}">products</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            categorias
+                            categories
                         </a>
                         <ul class="dropdown-menu">
                             @foreach ($categories as $category)
@@ -41,34 +43,36 @@
                             @endforeach
                         </ul>
                     </li>
-
-
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5" aria-current="page" href="{{ route('aboutUs') }}">about
+                            us</a>
+                    </li>
                 </ul>
             </div>
 
+            {{-- Change this to policy and middleware --}}
             <ul class="navbar-nav ms-auto">
                 @guest
-
                     <li class="nav-item">
                         <a class="nav-link fs-5" href="{{ route('login.index') }}">login</a>
                     </li>
-
                 @endguest
-
                 @auth
                     @if (Auth::user()->user_type === 'customer')
-
                         <li class="nav-item">
-                            <a class="nav-link fs-5" href="{{ route('carts.showCart') }}">carrinho</a>
+                            <a class="nav-link fs-5" href="{{ route('carts.showCart') }}">my shopping cart</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                minha conta
+                                my account
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item fs-5" href="">meus pedidos</a></li>
-                                <li><a class="dropdown-item fs-5" href="">meu endereço</a></li>
+                                <li><a class="dropdown-item fs-5" href="{{ route('orders.list') }}">my orders</a></li>
+                                <li><a class="dropdown-item fs-5" href="{{ route('addresses.index') }}">my addresses</a></li>
+                                <li>
+                                    <a class="dropdown-item fs-5" href="{{ route('wishlists.index') }}">my wish list</a>
+                                </li>
                                 <li>
                                     <a class="dropdown-item fs-5" href=""
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -81,18 +85,17 @@
                                 </form>
                             </ul>
                         </li>
-
                     @elseif (Auth::user()->user_type === 'admin')
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                opções de administrador
+                                admin options
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item fs-5" href="">dashboard</a></li>
-                                <li><a class="dropdown-item fs-5" href="{{ route('products.index') }}">produtos</a></li>
-                                <li><a class="dropdown-item fs-5" href="">usuarios</a></li>
+                                <li><a class="dropdown-item fs-5" href="{{ route(name: 'dashboard') }}">dashboard</a></li>
+                                <li><a class="dropdown-item fs-5" href="{{ route('products.index') }}">products</a></li>
+                                <li><a class="dropdown-item fs-5" href="{{ route('orders.index') }}">orders</a></li>
+                                <li><a class="dropdown-item fs-5" href="{{ route('users.index') }}">users</a></li>
                                 <li>
                                     <a class="dropdown-item fs-5" href=""
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -105,7 +108,6 @@
                                 </form>
                             </ul>
                         </li>
-
                     @endif
                 @endauth
             </ul>
